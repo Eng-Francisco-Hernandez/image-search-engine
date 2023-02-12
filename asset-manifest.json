@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/image-search-engine/static/js/main.a96aa98d.js",
+    "index.html": "/image-search-engine/index.html",
+    "main.a96aa98d.js.map": "/image-search-engine/static/js/main.a96aa98d.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.a96aa98d.js"
+  ]
+}
