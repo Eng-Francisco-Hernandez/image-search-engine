@@ -10,60 +10,71 @@ export default function Landing() {
   const [currentImages, setCurrentImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
-  const { initialImages, isLoading } = useInitialImages();
+  const { initialImages, isLoading, initialDataError } = useInitialImages();
+  const [rateLimitReached, setRateLimitReached] = useState(false);
 
   const searchImages = async () => {
-    setCurrentImages([]);
-    setCurrentPage(1);
-    setSearchLoading(true);
-    const headers = {
-      Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_CLIENT_ID}`,
-    };
-    const options = {
-      headers: headers,
-    };
-    const imagesRes = await axios.get(
-      `${
-        process.env.REACT_APP_UNSPLASH_BASE_URL
-      }/search/photos?page=1&per_page=${pageSize}&query=${searchValue.trim()}`,
-      options
-    );
-    const images = imagesRes.data.results.map((img: any) => {
-      return {
-        key: img.id,
-        src: img.urls.small,
-        width: img.width,
-        height: img.height,
+    try {
+      setRateLimitReached(false);
+      setCurrentImages([]);
+      setCurrentPage(1);
+      setSearchLoading(true);
+      const headers = {
+        Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_CLIENT_ID}`,
       };
-    });
-    setCurrentImages(images);
-    setSearchValue((prevVal) => prevVal.trim());
-    setSearchLoading(false);
+      const options = {
+        headers: headers,
+      };
+      const imagesRes = await axios.get(
+        `${
+          process.env.REACT_APP_UNSPLASH_BASE_URL
+        }/search/photos?page=1&per_page=${pageSize}&query=${searchValue.trim()}`,
+        options
+      );
+      const images = imagesRes.data.results.map((img: any) => {
+        return {
+          key: img.id,
+          src: img.urls.small,
+          width: img.width,
+          height: img.height,
+        };
+      });
+      setCurrentImages(images);
+      setSearchValue((prevVal) => prevVal.trim());
+      setSearchLoading(false);
+    } catch (error) {
+      setRateLimitReached(true);
+    }
   };
 
   const showMore = async () => {
-    const headers = {
-      Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_CLIENT_ID}`,
-    };
-    const options = {
-      headers: headers,
-    };
-    const imagesRes = await axios.get(
-      `${process.env.REACT_APP_UNSPLASH_BASE_URL}/search/photos?page=${
-        currentPage + 1
-      }&per_page=${pageSize}&query=${searchValue.trim()}`,
-      options
-    );
-    const images = imagesRes.data.results.map((img: any) => {
-      return {
-        key: img.id,
-        src: img.urls.small,
-        width: img.width,
-        height: img.height,
+    try {
+      setRateLimitReached(false);
+      const headers = {
+        Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_CLIENT_ID}`,
       };
-    });
-    setCurrentImages((prevVal) => prevVal.concat(images));
-    setCurrentPage((prevVal) => prevVal + 1);
+      const options = {
+        headers: headers,
+      };
+      const imagesRes = await axios.get(
+        `${process.env.REACT_APP_UNSPLASH_BASE_URL}/search/photos?page=${
+          currentPage + 1
+        }&per_page=${pageSize}&query=${searchValue.trim()}`,
+        options
+      );
+      const images = imagesRes.data.results.map((img: any) => {
+        return {
+          key: img.id,
+          src: img.urls.small,
+          width: img.width,
+          height: img.height,
+        };
+      });
+      setCurrentImages((prevVal) => prevVal.concat(images));
+      setCurrentPage((prevVal) => prevVal + 1);
+    } catch (error) {
+      setRateLimitReached(true);
+    }
   };
 
   const onEnter = (e: any) => {
@@ -81,9 +92,20 @@ export default function Landing() {
         onClearButton={() => setSearchValue("")}
         onSearchButton={searchImages}
       />
-      {isLoading || searchLoading ? (
+      {rateLimitReached || initialDataError ? (
         <Card className="mt-3">
-          <Card.Body>... Loading ...</Card.Body>
+          <Card.Body>
+            <h3>
+              The free limit rate from Unsplash API has been reached. Please try
+              again when a new hour of your clock starts.
+            </h3>
+          </Card.Body>
+        </Card>
+      ) : isLoading || searchLoading ? (
+        <Card className="mt-3">
+          <Card.Body>
+            <h3>... Loading ...</h3>
+          </Card.Body>
         </Card>
       ) : (
         <ImageGrid
