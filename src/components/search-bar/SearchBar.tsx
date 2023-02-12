@@ -2,7 +2,8 @@ import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { SearchBarProps } from "../../types";
 
 export default function SearchBar(props: SearchBarProps) {
-  const { searchValue, onChange, onSearchButton, onClearButton } = props;
+  const { searchValue, onChange, onKeyDown, onSearchButton, onClearButton } =
+    props;
   return (
     <Card className="mt-5">
       <Card.Body>
@@ -15,6 +16,7 @@ export default function SearchBar(props: SearchBarProps) {
                 value={searchValue}
                 onChange={onChange}
                 size="sm"
+                onKeyDown={onKeyDown}
               />
               <Button size="sm" onClick={onSearchButton}>
                 Search

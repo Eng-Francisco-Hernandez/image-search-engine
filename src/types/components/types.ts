@@ -3,6 +3,7 @@ import { Image } from "react-grid-gallery";
 export interface SearchBarProps {
   searchValue: string;
   onChange: (e: any) => void;
+  onKeyDown: (e: any) => void;
   onSearchButton: () => void;
   onClearButton: () => void;
 }

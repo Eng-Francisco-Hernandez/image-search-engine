@@ -66,11 +66,18 @@ export default function Landing() {
     setCurrentPage((prevVal) => prevVal + 1);
   };
 
+  const onEnter = (e: any) => {
+    if (e.key === "Enter") {
+      searchImages();
+    }
+  };
+
   return (
     <Container fluid="lg" className="mb-5">
       <SearchBar
         searchValue={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
+        onKeyDown={(e) => onEnter(e)}
         onClearButton={() => setSearchValue("")}
         onSearchButton={searchImages}
       />
