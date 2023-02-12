@@ -9,7 +9,7 @@ export default function Landing() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [currentImages, setCurrentImages] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(10);
   const { initialImages, isLoading } = useInitialImages();
 
   const searchImages = async () => {

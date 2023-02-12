@@ -3,7 +3,7 @@ import axios from "axios";
 
 const useInitialImages = () => {
   const [initialImages, setInitialImages] = useState([]);
-  const [pageSize, setPageSize] = useState(20);
+  const [pageSize, setPageSize] = useState(10);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
