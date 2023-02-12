@@ -1,11 +1,16 @@
-import { Col, Container, Row } from 'react-bootstrap';
+import { useState } from "react";
+import { Container } from "react-bootstrap";
+import { SearchBar } from "../../components";
 
 export default function Landing() {
+  const [searchValue, setSearchValue] = useState("");
+
   return (
-    <Container>
-      <Row>
-        <Col>Landing</Col>
-      </Row>
+    <Container fluid="lg">
+      <SearchBar
+        searchValue={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+      />
     </Container>
   );
 }
