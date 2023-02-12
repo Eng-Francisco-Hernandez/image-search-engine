@@ -2,7 +2,7 @@ import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { SearchBarProps } from "../../types";
 
 export default function SearchBar(props: SearchBarProps) {
-  const { searchValue, onChange } = props;
+  const { searchValue, onChange, onSearchButton, onClearButton } = props;
   return (
     <Card className="mt-5">
       <Card.Body>
@@ -14,10 +14,19 @@ export default function SearchBar(props: SearchBarProps) {
                 placeholder="Search for an image"
                 value={searchValue}
                 onChange={onChange}
+                size="sm"
               />
-              <Button>Search</Button>
+              <Button size="sm" onClick={onSearchButton}>
+                Search
+              </Button>
               <div className="vr" />
-              <Button variant="outline-danger">X</Button>
+              <Button
+                size="sm"
+                onClick={onClearButton}
+                variant="outline-danger"
+              >
+                X
+              </Button>
             </Stack>
           </Col>
         </Row>
