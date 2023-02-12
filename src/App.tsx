@@ -1,10 +1,15 @@
-import React from 'react';
+import { ThemeProvider } from "react-bootstrap";
+import { Landing } from "./pages";
+import './app.scss';
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <ThemeProvider
+      breakpoints={["xxxl", "xxl", "xl", "lg", "md", "sm", "xs", "xxs"]}
+      minBreakpoint="xxs"
+    >
+      <Landing />
+    </ThemeProvider>
   );
 }
 

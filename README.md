@@ -1,46 +1,45 @@
-# Getting Started with Create React App
+## Image search engine
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An application build to work as an image search engine. Built with TypeScript, React, CSS/SASS and Bootstrap among others.
 
-## Available Scripts
+The third party used to retrieve images is:
 
-In the project directory, you can run:
+- [Unsplash](https://unsplash.com/)
 
-### `yarn start`
+## Project Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+To see the project go to the next [DEMO LINK](https://eng-francisco-hernandez.github.io/image-search-engine/)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Installation and Setup Instructions
 
-### `yarn test`
+#### Example:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Clone down this repository. You will need `node`, `npm` and `yarn` installed globally on your machine.
 
-### `yarn build`
+Installation:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+`yarn install`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+To Start The App:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+`yarn start`
 
-### `yarn eject`
+To Visit The App:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+[http://localhost:3000/image-search-engine](http://localhost:3000/image-search-engine)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To Build The App:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`yarn build`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+To Deploy The App Using GH Pages: (requires GH pages configuration)
 
-## Learn More
+`yarn deploy`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Reflection
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This was a personal project to build an application that works as an image search engine to look up for pictures of some topic in particular using the Unsplash API as main source of data. Helpful to search public images quickly whenever it is needed.
+
+The main programming language being used is TypeScript, and the technologies used to build the project are React, CSS/SASS and Bootstrap.
+
+The project also counts with a GitHub workflow that automatically deploys the built application using Github Pages whenever a new pull-request is opened to a release branch.
