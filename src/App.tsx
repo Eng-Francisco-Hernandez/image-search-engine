@@ -1,11 +1,7 @@
-import React from 'react';
+import { Landing } from "./pages";
 
 function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+  return <Landing />;
 }
 
 export default App;
