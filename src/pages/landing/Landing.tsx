@@ -1,47 +1,58 @@
-import { useState } from "react";
-import { Container } from "react-bootstrap";
-import { Image } from "react-grid-gallery";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Card, Container } from "react-bootstrap";
 import { ImageGrid, SearchBar } from "../../components";
-
-const images: Image[] = [
-  {
-    src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-    width: 320,
-    height: 174,
-    caption: "After Rain (Jeshu John - designerspics.com)",
-  },
-  {
-    src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
-    width: 320,
-    height: 212,
-    tags: [
-      { value: "Ocean", title: "Ocean" },
-      { value: "People", title: "People" },
-    ],
-    alt: "Boats (Jeshu John - designerspics.com)",
-  },
-
-  {
-    src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
-    width: 320,
-    height: 212,
-  },
-];
+import useInitialImages from "../../custom-hooks/useInitialImages";
 
 export default function Landing() {
   const [searchValue, setSearchValue] = useState("");
+  const [currentImages, setCurrentImages] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const { initialImages, isLoading } = useInitialImages();
 
-  const searchImages = async () => {};
+  const searchImages = async () => {
+    const headers = {
+      Authorization: `Client-ID ${process.env.REACT_APP_UNSPLASH_CLIENT_ID}`,
+    };
+    const options = {
+      headers: headers,
+    };
+    const imagesRes = await axios.get(
+      `${
+        process.env.REACT_APP_UNSPLASH_BASE_URL
+      }/search/photos?page=${currentPage}&per_page=${pageSize}&query=${searchValue.trim()}`,
+      options
+    );
+    const images = imagesRes.data.results.map((img: any) => {
+      return {
+        key: img.id,
+        src: img.urls.small,
+        width: img.width,
+        height: img.height,
+      };
+    });
+    setCurrentImages(images);
+    setSearchValue((prevVal) => prevVal.trim());
+  };
 
   return (
-    <Container fluid="lg">
+    <Container fluid="lg" className="mb-5">
       <SearchBar
         searchValue={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
         onClearButton={() => setSearchValue("")}
         onSearchButton={searchImages}
       />
-      <ImageGrid images={images} />
+      {isLoading ? (
+        <Card className="mt-3">
+          <Card.Body>... Loading ...</Card.Body>
+        </Card>
+      ) : (
+        <ImageGrid
+          images={currentImages.length ? currentImages : initialImages}
+        />
+      )}
     </Container>
   );
 }

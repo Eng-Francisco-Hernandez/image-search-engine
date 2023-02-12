@@ -26,6 +26,8 @@ jobs:
         run: npm run build
         env:
           CI: false
+          REACT_APP_UNSPLASH_CLIENT_ID: ${{ secrets.REACT_APP_UNSPLASH_CLIENT_ID }}
+          REACT_APP_UNSPLASH_BASE_URL: ${{ secrets.REACT_APP_UNSPLASH_BASE_URL }}
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v3
         with:

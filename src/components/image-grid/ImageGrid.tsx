@@ -1,4 +1,3 @@
-import React from "react";
 import { Card } from "react-bootstrap";
 import { ImageGridProps } from "../../types";
 import { Gallery } from "react-grid-gallery";
