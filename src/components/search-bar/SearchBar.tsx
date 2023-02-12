@@ -11,7 +11,7 @@ export default function SearchBar(props: SearchBarProps) {
             <Stack direction="horizontal" gap={3}>
               <Form.Control
                 className="me-auto"
-                placeholder="Search for an image"
+                placeholder="Search images (e.g. cats)"
                 value={searchValue}
                 onChange={onChange}
                 size="sm"

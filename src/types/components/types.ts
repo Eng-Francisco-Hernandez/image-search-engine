@@ -14,4 +14,5 @@ export interface TagType {
 
 export interface ImageGridProps {
   images: Image[];
+  showMore: () => void;
 }

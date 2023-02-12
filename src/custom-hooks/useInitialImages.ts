@@ -3,6 +3,7 @@ import axios from "axios";
 
 const useInitialImages = () => {
   const [initialImages, setInitialImages] = useState([]);
+  const [pageSize, setPageSize] = useState(20);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -15,7 +16,7 @@ const useInitialImages = () => {
     async function setInitialData() {
       setIsLoading(true);
       const initialImagesRes = await axios.get(
-        `${process.env.REACT_APP_UNSPLASH_BASE_URL}/photos`,
+        `${process.env.REACT_APP_UNSPLASH_BASE_URL}/photos?per_page=${pageSize}`,
         options
       );
       const images = initialImagesRes.data.map((img: any) => {
